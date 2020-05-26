@@ -1,0 +1,26 @@
+{% extends 'aa/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+{% block dashboard %} id="activated" {% endblock %}
+{% block body %}
+
+<div class="col-lg-9"><br>
+          <div class="card mt-4">
+            <div class="card-body">
+              <h4>Welcome</h4>
+              <h3 class="card-title">{{ user.fname }}</h3>
+            </div>
+          </div>
+          <!-- /.card -->
+          <div class="card card-outline-secondary my-4">
+            <div class="card-header">
+                <p style="position: absolute ; left: 50%; transform: translate(-50%,0); display: block"> Introducing BSE </p><br>
+            </div>
+            <div class="card-body">
+              
+            </div>
+          </div>
+        </div>
+
+
+{% endblock %}

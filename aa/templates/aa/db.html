@@ -1,0 +1,19 @@
+{% extends "aa/nav.html" %}
+
+{% block content %}
+{% if ticker %}
+    {{ ticker}}
+{% endif %}
+
+{% if tick %}
+        <h1>{{tick.symbol}}</h1><br>
+        <img src="{{tick.path}}">
+        Open:{{tick.Open}}<br>
+        High:{{tick.dayHigh}}<br>
+        Low:{{tick.dayLow}}
+        <br>
+        lastPrice:{{tick.lastPrice}}<br>
+        previousClose:{{tick.previousClose}}<br>
+        change:{{tick.change}}<br>
+{% endif%}
+{% endblock %}

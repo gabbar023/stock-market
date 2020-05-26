@@ -1,0 +1,38 @@
+
+{% extends "aa/base.html" %}
+(% load crispy_forms_tags %)
+{% block body %}
+<div class="col-lg-9" style="min-height: 582px">
+<br>
+
+          <div class="card mt-4">
+            <div class="card-body">
+              <h6>Welcome to your profile</h6>
+              <h3 class="card-title">{{ user.username }}</h3>
+            </div>
+          </div>
+          <!-- /.card -->
+          <div class="card card-outline-secondary my-4">
+            <div class="card-header">
+                <p style="position: absolute ; left: 50%; transform: translate(-50%,0); display: block">Your Profile</p><br>
+            </div>
+            <div class="card-body">
+               <h3 class="card-title">{{ user.fname }}</h3>
+               <h3 class="card-title">{{ user.email }}</h3>
+               <h3 class="card-title">{{ user.total_fund }}</h3>
+            </div>
+          </div>
+
+            <p> </p>
+            <p> </p>
+            <p> </p>
+            <p> </p>
+
+          <!-- /.card -->
+
+        </div>
+
+
+
+      </div>
+{% endblock %}
