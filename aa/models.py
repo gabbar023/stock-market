@@ -65,11 +65,12 @@ class TradeShares(models.Model):
     class Meta:
         db_table = 'trade_shares'
 
-#class Shares(models.Model):
- #   user= models.ForeignKey(Profile,on_delete=models.CASCADE)
-  #  f=models.ForeignKey(StockQuotes,to_field="symbol", db_column="symbol",on_delete=models.CASCADE)
-    #
-   # class Meta:
-    #    db_table = 'shares'
+class Shares(models.Model):
+    customer=models.ForeignKey(Profile,on_delete=models.CASCADE)
+    share=models.ForeignKey(StockQuotes,on_delete=models.CASCADE)
+    quantity=models.IntegerField(blank=True,null=False)
 
-# Create your models here.
+
+
+
+           

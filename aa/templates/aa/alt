@@ -1,0 +1,3 @@
+add sql query in home view 
+wwith condition c.symbol=s.symbol
+

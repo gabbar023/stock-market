@@ -69,8 +69,6 @@
       <div class="container">
         <a class="navbar-brand" style="font-family: 'Roboto Slab', arial;" href="{% url 'home' %}">BSE</a>
         <div class="" id="navbarResponsive">
-
-
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
               <a class="nav-link" href="{% url 'about' %}">About</a>
@@ -94,7 +92,7 @@
             </li>
         {% endif %}
         <li>
-          <form action="{% url 'db' %}"class="form-inline my-2 my-lg-0" method="POST">
+          <form  align="right" action="{% url 'db' %}"class="form-inline my-2 my-lg-0" method="POST">
             {% csrf_token %}
           <input class="form-control mr-sm-2" type="search" placeholder="Get Quote" aria-label="Search" name="ticker">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -124,7 +122,7 @@
         </div>
 
 {% block content %}
-            <table  style="margin-left: auto;margin-right: auto;padding-left: 10px;padding-right: 10px;">
+  <table  class="table table-striped">
   <thead>
     <tr>
     <th><h5>symbol</h5></th>
@@ -133,7 +131,6 @@
     <th><h5>Low</h5></th>
     <th><h5>Previous Close</h5></th>
     <th><h5>lastPrice</h5></th>
-    <th><h5>Change</h5></th>
     <th><h5>pChange</h5></th>
     <th><h5>yearHigh</h5></th>
     <th><h5>yearLow</h5></th>
@@ -142,24 +139,19 @@
   </thead>
   <tbody>
       {% for p in a  %}
-
   <tr>
-
-    <td><a href="{% url 'db' %}" >
-          {{p.symbol}}</a>
-    </td>    
+    <td><a href="{% url 'something' p.id %}">{{p.symbol}}</a></td>    
     <td>{{p.Open}}</td>
     <td>{{p.dayHigh}}</td>
     <td>{{p.dayLow}}</td>
     <td>{{p.previousClose}}</td>
     <td>{{p.lastPrice}}</td>
-    <td>{{p.change}</td>
     <td>{{p.pChange}}</td>
     <td>{{p.yearHigh}}</td>
     <td>{{p.yearLow}}</td>
-    <td>{{p.chartTodayPath}}</td>
+    <td><a href="{{p.chartTodayPath}}" target="_blank">{{p.chartTodayPath}}</a></td>
   </tr>
-  {% endfor %}
+    {% endfor %}
   </tbody>
 </table>
 {% endblock %}
@@ -180,7 +172,8 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/popper/popper.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
+    
+    
   </body>
 
 </html>

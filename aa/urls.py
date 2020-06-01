@@ -1,7 +1,7 @@
 from django.urls import path, include
 from . import views
 from django.contrib.auth import views as auth_views
-
+from django.conf.urls import url
 urlpatterns = [
     path('', views.home,name="home"),
     path('about/', views.about, name="about"),
@@ -13,4 +13,6 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name="dashboard"),
     path('contact/', views.contact, name="contact"),
     path('db/', views.db, name="db"),
+    path('sellbuy/',views.sellbuy,name='sellbuy'),
+    url(r'^(?P<stockQuotes_id>[0-9]+)/$', views.something, name='something'),
     ]

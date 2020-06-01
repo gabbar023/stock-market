@@ -1,33 +1,28 @@
-{% extends "aa/nav.html" %}
+{% extends "aa/navbar.html" %}
 
 {% block content %}
-    {% if ticker %}
-        {{ ticker}}
-    {% endif %}
-        {% if not ticker %}
-        <h1>{{symbol}}</h1><br>
+        {% if post %}
+        <h1>{{post.symbol}}</h1><br>
         <img src="{{chartTodayPath}}" height="100px" width="100px"><br>
-        Open:{{Open}}<br>
-        High:{{dayHigh}}<br>
-        Low:{{dayLow}}<br>
-        lastPrice:{{lastPrice}}<br>
-        previousClose:{{previousClose}}<br>
-        change:{{change}}<br>
-        Percentage Change:{{pChange}}<br>
-        yearHigh:{{yearHigh}}<br>
-        yearLow:{{yearLow}}<br>
-        <hr>
-        <div>
+        Open:{{post.Open}}<br>
+        High:{{post.dayHigh}}<br>
+        Low:{{post.dayLow}}<br>
+        lastPrice:{{post.lastPrice}}<br>
+        previousClose:{{post.previousClose}}<br>
+        change:{{post.change}}<br>
+        Percentage Change:{{post.pChange}}<br>
+        yearHigh:{{post.yearHigh}}<br>
+        yearLow:{{post.yearLow}}<br>
+
         <form action="{%  url 'sellbuy' %}"  method="POST">
             {% csrf_token %}
             <span ><b>Quantity :</b></span>
                 <input type="number" name="quantity" id="quantity" placeholder="01">
-                <input type="hidden" name="ticker"  value="{{symbol}}">
+                <input type="hidden" name="ticker"  value="{{post.symbol}}">
             <br><br>
             <div class="center"><button class="btn waves-effect waves-light  light-green accent-4 black-text" type="submit" name="buy" id="buy" value="BUY"  ><b>BUY</b></button>
             </div>
     </form>
-</div>
     {% endif   %}
        
 {% endblock %}
