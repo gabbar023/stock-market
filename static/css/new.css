@@ -1,0 +1,98 @@
+*{
+    margin:0;
+    padding:0;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    box-sizing: border-box;
+}
+.list-group-ite {
+  padding: 5px;
+  height: 46px;
+  border: 3px solid #1ca9b6;
+  border-radius: 23px;
+  margin-bottom: 7px;
+  text-align: center;
+  color: #1ca9b6;
+  transition-duration: 200ms;
+}
+
+.list-group-ite:hover {
+  text-decoration: none;
+  padding: 5px;
+  height: 46px;
+  border: 3px solid transparent;
+  border-radius: 23px;
+  margin-bottom: 7px;
+  text-align: center;
+  color: white;
+  background-color: #1ca9b6;
+}
+#activated {
+  text-decoration: none;
+  padding: 5px;
+  height: 46px;
+  border: 3px solid transparent;
+  border-radius: 23px;
+  margin-bottom: 7px;
+  text-align: center;
+  color: white;
+  background-color: #1ca9b6;
+}
+.btn-outline-success:hover {
+background-color: white;
+}
+header {
+    height: 65px;
+    width: 100%;
+    background-color: rgba(34, 49, 52, 0.8);
+    position:fixed;
+    top:0;
+    z-index:10;
+  }
+  .logo {
+    width:65px;
+  }
+  .header-left {
+    float: left;
+    color:white;
+    font-size: 45px;
+    line-height:65px;
+  }
+  .header-right a:hover {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  .header-right a {
+    cursor: pointer;
+    line-height: 65px;
+    padding: 0 25px;
+    color: white;
+    display: block;
+    float: right;
+    text-decoration:none;
+  }
+  .header-right {
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: all 0.5s;
+  }
+.container{
+  display:flex;
+  margin:0 auto;
+  background-color: bisque;
+}
+.table{
+  position:absolute;
+  top:100px;
+  left:20px;
+}
+.feed{
+  display:block;
+  width:335px;
+  position:absolute;
+  overflow: auto;
+  left:1135px;
+  top:100px;
+  border:2px solid black;
+  height: auto;
+}
+
+
+  

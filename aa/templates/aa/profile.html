@@ -1,7 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+  <head>
 
-{% extends "aa/base.html" %}
-(% load crispy_forms_tags %)
-{% block body %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'images/logo.jpg' %}" >
+    <title>{% block title %}BSE{% endblock %}</title>
+
+    <link href="{% static 'css/styler.css' %}" rel="stylesheet">
+    <link href="{% static 'css/animation.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+         body {
+       padding-top: 54px;
+    }
+
+    @media (min-width: 992px) {
+      body {
+          padding-top: 56px;
+        }
+     }
+     .list-group-ite {
+        padding: 5px;
+        height: 46px;
+        border: 3px solid #1ca9b6;
+        border-radius: 23px;
+        margin-bottom: 7px;
+        text-align: center;
+        color: #1ca9b6;
+        transition-duration: 200ms;
+     }
+
+     .list-group-ite:hover {
+        text-decoration: none;
+        padding: 5px;
+        height: 46px;
+        border: 3px solid transparent;
+        border-radius: 23px;
+        margin-bottom: 7px;
+        text-align: center;
+        color: white;
+        background-color: #1ca9b6;
+     }
+     #activated {
+        text-decoration: none;
+        padding: 5px;
+        height: 46px;
+        border: 3px solid transparent;
+        border-radius: 23px;
+        margin-bottom: 7px;
+        text-align: center;
+        color: white;
+        background-color: #1ca9b6;
+     }
+      .btn-outline-success:hover {
+      background-color: white;
+     }
+    </style>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" style="font-family: 'Roboto Slab', arial;" href="{% url 'home' %}">BSE</a>
+        <div class="" id="navbarResponsive">
+
+
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'about' %}">About</a>
+            </li>
+              <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>   
+            <form  align="right" action="{% url 'db' %}"class="form-inline my-2 my-lg-0" method="POST">
+            {% csrf_token %}
+          <input class="form-control mr-sm-2" type="search" placeholder="Get Quote" aria-label="Search" name="ticker">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-lg-3">
+
+          <h1 class="my-4"></h1>
+          <div class="list-group">
+            <a href="{% url 'dashboard' %}" class="list-group-ite" {% block dashboard %} {% endblock %} >Dashboard</a>
+            <b>Account Balance:{{b.acc_balance}}</b>
+          </ul>
+          </div>
+          <div style="width: 255px; border: 0px solid black; padding-bottom: 20px;">
+
+            <img class="card-img-top img-fluid"  src="{% static 'images/rss.png' %}" style="width: 20px; display: inline;" alt="RSS"><p style="">RSS Feed</p>
+            {% for entry in feeds.entries %}
+              <li><a href="{{entry.link}}">{{entry.title}}</a></li>
+            {% endfor %}
+          </div>
+          <!--<img class="card-img-top img-fluid"  src="{% static 'images/Untitled-1.png' %}" style="position: fixed;width: 255px;z-index: -1;" alt="Stock Juaari">-->
+        </div>
+        <!-- /.col-lg-3 -->
+         {% block body %}
 <div class="col-lg-9" style="min-height: 582px">
 <br>
 
@@ -17,22 +128,60 @@
                 <p style="position: absolute ; left: 50%; transform: translate(-50%,0); display: block">Your Profile</p><br>
             </div>
             <div class="card-body">
-               <h3 class="card-title">{{ user.fname }}</h3>
-               <h3 class="card-title">{{ user.email }}</h3>
-               <h3 class="card-title">{{ user.total_fund }}</h3>
-            </div>
-          </div>
-
+               <h3 class="card-title">{{ b.fname }} {{ b.Lname }}</h3>
+               <h3 class="card-title">{{ b.email }}</h3>
+               <h3 class="card-title">{{ b.acc_balance }}</h3>
+               {% if c%}
+               <p>Shares Hold are:</p>
+               <table  class="table table-striped">
+                <thead>
+                <tr>
+                <th><h5>Share</h5></th>
+                <th><h5>Quantity</h5></th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for p in c  %}
+                <tr>    
+              <td>{{p.share.symbol}}</td>
+              <td>{{p.quantity}}</td>
+              </tr>
+              {% endfor %}
+              </div>
+              </div>
             <p> </p>
             <p> </p>
             <p> </p>
             <p> </p>
 
-          <!-- /.card -->
+          
 
         </div>
-
+        {% else %}
+        <p>You don't hold any stock Right Now!!</p>
+        {% endif %}
 
 
       </div>
 {% endblock %}
+      </div>
+
+    </div>
+
+    <!-- /.container -->
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container" style="width: 100%">
+        <p class="m-0 text-center text-white">Copyright &copy; BSE 2020</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+  </body>
+
+</html>

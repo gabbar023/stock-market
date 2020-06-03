@@ -41,8 +41,15 @@
 
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+              <a class="nav-link " href="{% url 'creg' %}">Company Registration</a>
             </li>
+            <li>
+          <form  align="right" action="{% url 'db' %}"class="form-inline my-2 my-lg-0" method="POST">
+            {% csrf_token %}
+          <input class="form-control mr-sm-2" type="search" placeholder="Get Quote" aria-label="Search" name="ticker">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </li>
           </ul>
         </div>
       </div>

@@ -7,6 +7,10 @@
         {% if not ticker %}
         <h1>{{symbol}}</h1><br>
         <img src="{{chartTodayPath}}" height="100px" width="100px"><br>
+        Name:{{cname}}<br>
+        Sector:{{sector}}<br>
+        Revenue={{revenue}}<br>
+        Market Capital={{market_capital}}<br>
         Open:{{Open}}<br>
         High:{{dayHigh}}<br>
         Low:{{dayLow}}<br>
@@ -25,6 +29,10 @@
                 <input type="hidden" name="ticker"  value="{{symbol}}">
             <br><br>
             <div class="center"><button class="btn waves-effect waves-light  light-green accent-4 black-text" type="submit" name="buy" id="buy" value="BUY"  ><b>BUY</b></button>
+            </div>
+            <br>
+            <br>
+            <div class="center"><button class="btn waves-effect waves-light  light-green accent-4 black-text" type="submit" name="sell" id="sell" value="SELL"  ><b>SELL</b></button>
             </div>
     </form>
 </div>

@@ -1,9 +1,9 @@
-{% extends "aa/navbar.html" %}
+{% extends "aa/nav.html" %}
 
 {% block content %}
         {% if post %}
         <h1>{{post.symbol}}</h1><br>
-        <img src="{{chartTodayPath}}" height="100px" width="100px"><br>
+        <img src="{{post.chartTodayPath}}" height="100px" width="100px"><br>
         Open:{{post.Open}}<br>
         High:{{post.dayHigh}}<br>
         Low:{{post.dayLow}}<br>

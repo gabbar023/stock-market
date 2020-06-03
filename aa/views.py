@@ -4,7 +4,7 @@ from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponse,JsonResponse
-from .models import Company, StockQuotes,Profile,Shares
+from .models import Company, StockQuotes,Profile,Shares,TradeShares
 from django.db import connection
 import mysql.connector
 from django.contrib.auth.models import User
@@ -12,6 +12,7 @@ import datetime
 import feedparser
 feeds = feedparser.parse('http://feeds.marketwatch.com/marketwatch/realtimeheadlines/')
 from django.http import JsonResponse
+from django.contrib.auth import get_user_model
 
 
 # Create your views here.
@@ -24,6 +25,8 @@ def db(request):
 		mycursor = connection.cursor()
 		mycursor.execute("SELECT * FROM stock_quotes where symbol=%s ",[tickera])
 		tick = mycursor.fetchall()
+		mycursor.execute("SELECT * FROM company where symbol=%s ",[tickera])
+		ctick=mycursor.fetchall()
 		if tick:
 			tick=list(tick[0])
 			symbol=tick[1]
@@ -37,8 +40,13 @@ def db(request):
 			yearHigh=tick[9]
 			yearLow=tick[10]
 			chartTodayPath=tick[11]
+			ctick=list(ctick[0])
+			cname=ctick[1]
+			sector=ctick[2]
+			revenue=ctick[3]
+			market_capital=ctick[4]
 			print(symbol,dayHigh)
-			return render(request,'aa/db.html',{'feeds':feeds,'symbol':symbol,'Open':Open1,'dayHigh':dayHigh,'dayLow':dayLow,'lastPrice':lastPrice,
+			return render(request,'aa/db.html',{'feeds':feeds,'cname':cname,'sector':sector,'revenue':revenue,'market_capital':market_capital,'symbol':symbol,'Open':Open1,'dayHigh':dayHigh,'dayLow':dayLow,'lastPrice':lastPrice,
     			'previousClose':previousClose,'change':change,'pChange':pChange,'yearHigh':yearHigh,'yearLow':yearLow,'chartTodayPath':chartTodayPath})
 		else:
 			return render(request,'aa/db.html',{'ticker':"Enter a Valid Name",'feeds':feeds})
@@ -92,7 +100,11 @@ def login(request):
 
 @login_required
 def profile(request):
-	return render(request,'aa/profile.html',{'feeds':feeds })
+	a=request.user
+	b=Profile.objects.get(user=a)
+	c=Shares.objects.filter(customer=b)
+	return render(request,'aa/profile.html',{'feeds':feeds,'b':b,'c':c })
+
 
 def companyreg(request):
 	if request.method=="POST":
@@ -109,7 +121,10 @@ def companyreg(request):
 
 @login_required
 def dashboard(request):
-	return render(request,'aa/dashboard.html',{'feeds':feeds })
+	a=request.user
+	b=Profile.objects.get(user=a)
+	c=TradeShares.objects.filter(customer=b)
+	return render(request,'aa/dashboard.html',{'feeds':feeds, 'b':b,'c':c})
 
 def contact(request):
 	return render(request,'aa/contact.html')
@@ -118,37 +133,52 @@ def contact(request):
 def sellbuy(request):
 	if request.method == "POST":
 		share_choice = request.POST.get('ticker')
-		quantity = int(request.POST.get('quantity'))
+		quantity = int(request.POST.get('quantity')) #idhar tak quantity aur sto
 		share_obj=StockQuotes.objects.get(symbol=share_choice)
 		share_price= share_obj.Open
+		a=request.user
+		b=Profile.objects.get(user=a)
+		print(a)
 		if quantity>int(0):
-			if request.POST.get("button") == "BUY":
-				if share_price*quantity <= User.acc_balance:
-					trade_obj = TradeShares.objects.create(share=share_choice,choice='Buy',customer=User,bid=share_price,
+			if request.POST.get("buy"):
+				a=request.user
+				
+				print(b.acc_balance)
+				if share_price*quantity <= b.acc_balance:
+					trade_obj = TradeShares.objects.create(share=share_obj,trade_type='Buy',customer=b,bid=share_price,
 						volume=quantity,date=datetime.datetime.now())
 					trade_obj.save()
-					Shares.objects.create(share=share_choice,customer=User,quantity=quantity)
-					User.acc_balance=User.acc_balance-(share_price*quantity)		#profile.objects.get(user_ref= request.user)
-					return HttpResponse("Share Bought")
-			else:
-				return HttpResponse("insufficientt BAlance")
-			if request.POST.get("button") == "SELL":
-				try:
-					sell_obj = Shares.objects.get(share=share_choice,customer=User)
-					sell_share_quantity = sell_obj.quantity
-					if sell_share_quantity>=quantity:
-						trade_obj = TradeShares.objects.create(share=share_choice,choice='Sell',customer=User,bid=share_price)
-						trade_obj.save()
-						t=Shares.objects.get(share=share_choice,customer=User)
-						Shares.objects.set(share=share_choice,customer=User,quantity=)
-						
-						User.total_fund=User.total_fund+(share_price*quantity)
-						return HttpResponse("Shares Sold")
-
+					x=Shares.objects.get(share=share_obj,customer=b)
+					if x:
+						x.quantity+=quantity
+						x.save()
 					else:
-						return HttpResponse("You don't have enough shares !")	
-				except Shares.objects:
-					return HttpResponse("You have not bought these shares !")		
+						share_obj=Shares.objects.create(share=share_obj,customer=b,quantity=quantity)
+						share_obj.save()
+					b.acc_balance=b.acc_balance-(share_price*quantity)
+					b.save()
+					return HttpResponse("Share Bought")
+				else:
+					return HttpResponse("insufficientt BAlance")
+
+			if request.POST.get("sell"):
+				sell_obj=Shares.objects.get(share=share_obj,customer=b)
+				sell_share_quantity=sell_obj.quantity
+				if sell_share_quantity>=quantity:
+					trade_obj = TradeShares.objects.create(share=share_obj,trade_type='Sell',customer=b,bid=share_price,
+						volume=quantity,date=datetime.datetime.now())
+					trade_obj.save()
+					sell_obj.quantity=sell_obj.quantity-quantity
+					sell_obj.save()
+					if sell_obj.quantity==0:
+						sell_obj.delete()
+					b.acc_balance=b.acc_balance+(share_price*quantity)
+					b.save()
+					return HttpResponse("Shares Sold")
+				else:
+					return HttpResponse("You don't have enough shares !")	
+			else:
+				return HttpResponse("You have not bought these shares !")	
 
 
 def something(request,stockQuotes_id):
