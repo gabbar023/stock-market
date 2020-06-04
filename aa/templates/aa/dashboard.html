@@ -2,28 +2,16 @@
 <html lang="en">
 {% load static %}
   <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="{% static 'images/logo.jpg' %}" >
     <title>{% block title %}Dashboard{% endblock %}</title>
-
     <link href="{% static 'css/styler.css' %}" rel="stylesheet">
     <link href="{% static 'css/animation.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
-
-
-
-
-
-
-
-
-
-
          body {
        padding-top: 54px;
     }
@@ -74,14 +62,11 @@
   </head>
 
   <body>
-
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand" style="font-family: 'Roboto Slab', arial;" href="{% url 'home' %}">BSE</a>
         <div class="" id="navbarResponsive">
-
-
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               <a class="nav-link" href="{% url 'about' %}">About</a>
@@ -101,18 +86,16 @@
 
     <!-- Page Content -->
     <div class="container">
-
       <div class="row">
-
         <div class="col-lg-3">
-
           <h1 class="my-4"></h1>
+          <!-- side nav-->
           <div class="list-group">
-            <a href="{% url 'dashboard' %}" class="list-group-ite" {% block dashboard %} {% endblock %} >Dashboard</a>
-            <b>Account Balance:{{b.acc_balance}}</b>
+            <a href="{% url 'profile' %}" class="list-group-ite" {% block dashboard %} {% endblock %} >Profile</a>
+            <b class="list-group-ite">Account Balance:{{b.acc_balance}}</b>
           </div>
-          <div style="width: 255px; border: 0px solid black; padding-bottom: 20px;">
-
+          <!-- feed-->
+          <div style="width: 255px; border: 3px solid black; padding-bottom: 20px;">
             <img class="card-img-top img-fluid"  src="{% static 'images/rss.png' %}" style="width: 20px; display: inline;" alt="RSS"><p style="">RSS Feed</p>
             {% for entry in feeds.entries %}
               <li><a href="{{entry.link}}">{{entry.title}}</a></li>
@@ -145,8 +128,9 @@
                 </tr>
               </thead>
               <tbody>
-              {% for p in c  %}
-                <tr>    
+              
+              <tr>    
+                {% for p in c  %}
               <td>{{p.date}}</td>
               <td>{{p.share.symbol}}</td>
               <td>{{p.trade_type}}</td>
@@ -154,19 +138,18 @@
               <td>{{p.volume}}</td>
               </tr>
               {% endfor %}
+              </tbody>
+          </table>
             </div>
           </div>
         </div>
         {% else %}
         <p>You Didnot Trade Any Stock!!!</p>
-        <p>TRY NOW!!!</p>
+        <p><a href="{% url 'home' %}">Jump to Home</p></a>
         {% endif %}
-        
         {% endblock %}
-      </div>
-
+        </div>
     </div>
-
     <!-- /.container -->
     <!-- Footer -->
     <footer class="py-5 bg-dark">
@@ -175,7 +158,6 @@
       </div>
       <!-- /.container -->
     </footer>
-
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/popper/popper.min.js"></script>

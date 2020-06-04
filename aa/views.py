@@ -17,6 +17,8 @@ from django.contrib.auth import get_user_model
 
 # Create your views here.
 
+def start(request):
+	return render(request,"aa/start.html")
 def db(request):
 	import requests
 	import json
@@ -54,6 +56,7 @@ def db(request):
 		return render(request,'aa/db.html',{'ticker':"Enter a Valid Name",'feeds':feeds})
 
 def home(request):
+	
 	a=StockQuotes.objects.all()
 	return render(request,'aa/navbar.html',{'feeds':feeds,'a':a}) #homepage view
 
@@ -142,17 +145,20 @@ def sellbuy(request):
 		if quantity>int(0):
 			if request.POST.get("buy"):
 				a=request.user
-				
 				print(b.acc_balance)
 				if share_price*quantity <= b.acc_balance:
-					trade_obj = TradeShares.objects.create(share=share_obj,trade_type='Buy',customer=b,bid=share_price,
-						volume=quantity,date=datetime.datetime.now())
-					trade_obj.save()
-					x=Shares.objects.get(share=share_obj,customer=b)
-					if x:
-						x.quantity+=quantity
-						x.save()
-					else:
+					try:
+						x=Shares.objects.get(share=share_obj,customer=b)
+						if x:
+							trade_obj = TradeShares.objects.create(share=share_obj,trade_type='Buy',customer=b,bid=share_price,
+								volume=quantity,date=datetime.datetime.now())
+							trade_obj.save()
+							x.quantity=x.quantity+quantity
+							x.save()
+					except:
+						trade_obj = TradeShares.objects.create(share=share_obj,trade_type='Buy',customer=b,bid=share_price,
+							volume=quantity,date=datetime.datetime.now())
+						trade_obj.save()
 						share_obj=Shares.objects.create(share=share_obj,customer=b,quantity=quantity)
 						share_obj.save()
 					b.acc_balance=b.acc_balance-(share_price*quantity)

@@ -91,19 +91,15 @@
 
     <!-- Page Content -->
     <div class="container">
-
       <div class="row">
-
         <div class="col-lg-3">
-
           <h1 class="my-4"></h1>
           <div class="list-group">
             <a href="{% url 'dashboard' %}" class="list-group-ite" {% block dashboard %} {% endblock %} >Dashboard</a>
-            <b>Account Balance:{{b.acc_balance}}</b>
+            <b class="list-group-ite">Account Balance:{{b.acc_balance}}</b>
           </ul>
           </div>
-          <div style="width: 255px; border: 0px solid black; padding-bottom: 20px;">
-
+          <div style="width: 255px; border: 3px solid black; padding-bottom: 20px;">
             <img class="card-img-top img-fluid"  src="{% static 'images/rss.png' %}" style="width: 20px; display: inline;" alt="RSS"><p style="">RSS Feed</p>
             {% for entry in feeds.entries %}
               <li><a href="{{entry.link}}">{{entry.title}}</a></li>
@@ -111,32 +107,34 @@
           </div>
           <!--<img class="card-img-top img-fluid"  src="{% static 'images/Untitled-1.png' %}" style="position: fixed;width: 255px;z-index: -1;" alt="Stock Juaari">-->
         </div>
-        <!-- /.col-lg-3 -->
          {% block body %}
-<div class="col-lg-9" style="min-height: 582px">
-<br>
-
+<div class="col-lg-9" style="min-height: 582px"><br>
           <div class="card mt-4">
             <div class="card-body">
-              <h6>Welcome to your profile</h6>
-              <h3 class="card-title">{{ user.username }}</h3>
+              <h3 class="card-title"> Hi!! {{ user.username }} </h3>
             </div>
           </div>
           <!-- /.card -->
           <div class="card card-outline-secondary my-4">
             <div class="card-header">
-                <p style="position: absolute ; left: 50%; transform: translate(-50%,0); display: block">Your Profile</p><br>
-            </div>
+            <p style="position: absolute ; left: 50%; transform: translate(-50%,0); display: block">Your Profile</p><br></div>
             <div class="card-body">
-               <h3 class="card-title">{{ b.fname }} {{ b.Lname }}</h3>
-               <h3 class="card-title">{{ b.email }}</h3>
-               <h3 class="card-title">{{ b.acc_balance }}</h3>
+               <h5><i>Name:{{ b.fname }} {{ b.Lname }}</h5><br>
+              <h5>Email:{{ b.email }} </h5><br>
+              <h5>Account Balance:{{ b.acc_balance }} </h5><br></i>
+            </div>
+          </div>
+          <!-- new card for stock -->
+            <div class="card card-outline-secondary my-4">
+            <div class="card-header">
+                <p style="position: absolute ; left: 50%; transform: translate(-50%,0); display: block">Shares Held by You:</p>
+                <br>
+                <div class="card-body">
                {% if c%}
-               <p>Shares Hold are:</p>
                <table  class="table table-striped">
                 <thead>
                 <tr>
-                <th><h5>Share</h5></th>
+                <th><h5>Company</h5></th>
                 <th><h5>Quantity</h5></th>
                 </tr>
               </thead>
@@ -147,27 +145,18 @@
               <td>{{p.quantity}}</td>
               </tr>
               {% endfor %}
-              </div>
-              </div>
-            <p> </p>
-            <p> </p>
-            <p> </p>
-            <p> </p>
-
-          
-
-        </div>
-        {% else %}
+              </tbody>
+              </table>
+              {% else %}
         <p>You don't hold any stock Right Now!!</p>
         {% endif %}
-
-
+          </div>
+        </div>
       </div>
-{% endblock %}
-      </div>
-
     </div>
-
+  </div>
+        {% endblock %}
+        
     <!-- /.container -->
     <!-- Footer -->
     <footer class="py-5 bg-dark">

@@ -4,6 +4,7 @@
         {% if post %}
         <h1>{{post.symbol}}</h1><br>
         <img src="{{post.chartTodayPath}}" height="100px" width="100px"><br>
+        
         Open:{{post.Open}}<br>
         High:{{post.dayHigh}}<br>
         Low:{{post.dayLow}}<br>
@@ -21,6 +22,10 @@
                 <input type="hidden" name="ticker"  value="{{post.symbol}}">
             <br><br>
             <div class="center"><button class="btn waves-effect waves-light  light-green accent-4 black-text" type="submit" name="buy" id="buy" value="BUY"  ><b>BUY</b></button>
+            </div>
+            <br>
+            <br>
+            <div class="center"><button class="btn waves-effect waves-light  light-green accent-4 black-text" type="submit" name="sell" id="sell" value="SELL"  ><b>SELL</b></button>
             </div>
     </form>
     {% endif   %}

@@ -14,5 +14,6 @@ urlpatterns = [
     path('contact/', views.contact, name="contact"),
     path('db/', views.db, name="db"),
     path('sellbuy/',views.sellbuy,name='sellbuy'),
+    path('start/', views.start, name="start"),
     url(r'^(?P<stockQuotes_id>[0-9]+)/$', views.something, name='something'),
     ]

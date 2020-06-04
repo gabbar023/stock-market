@@ -4,31 +4,28 @@
 	<title>BSE '20</title>
 	{% load static %}
 	<title></title>
-	<link type="text/css" rel="stylesheet" href="/static/css/materialize.min.css"  media="screen,projection"/>
-	<script src="/static/js/jquery-3.2.1.js"></script>
-	<link rel="stylesheet" type="text/css" href="/static/css/animate.css">
+	<link type="text/css" rel="stylesheet" href="{% static 'css/materializemin.css' %}"  media="screen,projection"/>
+	<script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'css/animate.css' %>"
 	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-	<link rel="icon" href="/static/images/logo.png">
+	<link rel="icon" href="{% static 'images/wallstreet-logo.png' %}">
 </head>
 <body style="font-family: 'Raleway', sans-serif;">
 <script src="/static/js/jquery-3.2.1.js"></script>
-<script type="text/javascript" src="/static/js/materialize.min.js"></script>
+<script  src="{% static 'js/materializemin.js' %}"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		 $(".button-collapse").sideNav();
 	});
 </script>
-<p><a href="{% url 'home' %}">Skip to Main content</a></p>
  <nav>
     <div class="nav-wrapper teal darken-3 ">
       <a href="#" class="brand-logo" style="margin-left: 30px;"><b class="lime-text">BSE '20</b></a>
-      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons"></i></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down" style="margin-right: 70px;">
-        <li><a href="#">DEVELOPERS</a></li>
-      </ul>
-      <ul class="side-nav" id="mobile-demo">
-        <li><a href="#">DEVELOPERS</a></li>
+        <li><a href="#dd">DEVELOPERS</a></li>
+        <li><u><a href="{% url 'home' %}">Skip to Main Content</a></u></li>
       </ul>
     </div>
   </nav>
@@ -36,37 +33,28 @@
 <br><br>
   	<!--<b><h1 class="animated zoomIn center lime-text">WallStreet '17</h1></b>-->
   <div class="center animated zoomIn center ">
-	<b><h1 class="animated zoomIn center lime-text">Bombay Stock Exchange'20</h1></b>
+	<b><h1 class="animated zoomIn center lime-text">Bombay Stock Exchange '20</h1></b>
   	</div>
   	<br>
   	<h5 class="center">"Everyone has the brainpower to follow the stock market. If you made it through fifth-grade math, you can do it."<br><br> - Peter Lynch </h5>
  <br>
 <hr width="500">
- <br><br>
-
-
 <div class="container">
 	<div class="row center">
 		<div class="col s6">
-			<h5>Already a user?</h5><br> <a href="{% url 'login' %}" class="black-text waves-effect waves-black btn-flat yellow"><b>Sign In</b></a>
-		</div>
-		<div class="col s6">
-			<h5>Get yourself registered</h5> <br><a href="{% url 'register' %}" class="black-text waves-effect waves-green btn-flat yellow"><b>Register</b></a>
 		</div>
 	</div>
 </div>
-<br><br>
 </div>
-<br><br>
-	<div>
-		<h3 class="center">About the Event</h3>
+	<div id="dd">
+		<h3 class="center">About Project</h3>
 		<hr width="500">
 		<br>
 		  <div class="container">
 			<div class="row">
 				<div class="col s6">
 					<h4 class="center">Introduction</h4>
-					<p class="center">Wall Street is a virtual and live game that will give the students an opportunity to see the transgressions of the market first hand. While creating a virtual stock market and providing them with virtual stocks, this game in turn allows students to learn to build up from the least and how to become a giant in the world of changing trends. This will be daily event with a daily winner. Person on the top of the share market with the largest number of shares in value goes home as the winner.</p>
+					<p class="center">BSE is a virtual and live game that will give the students an opportunity to see the transgressions of the market first hand. While creating a virtual stock market and providing them with virtual stocks, this game in turn allows students to learn to build up from the least and how to become a giant in the world of changing trends. This will be daily event with a daily winner. Person on the top of the share market with the largest number of shares in value goes home as the winner.</p>
 					<br>
 					<p>
 						<h4 class="center">Need</h4>
@@ -106,7 +94,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col s4">
-					<h5 class="yellow-text center">The E-Cell</h5>
+					<h5 class="yellow-text center">The Bania Group</h5>
 					<hr>
 					<p class="grey-text text-lighten-4 center">We are a team of members inspiring, innovating and inculcating the dreams of young entrepreneurs</p>
 				</div>
@@ -114,6 +102,7 @@
 
 					<h5 class="yellow-text center">Developers Team</h5>
 					<hr>
+					<p class="grey-text text-lighten-4 center">1. Deepak Agarwal <br> Email: dpkagarwal023@gmail.com <br> <br>2.Goutam Doddamani <br> Email: goutamd99@gmail.com</p>
 				</div>
 				<div class="col s4">
 					<h5 class="yellow-text center">Connect with us</h5>

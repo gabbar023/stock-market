@@ -5,22 +5,29 @@
         {{ ticker}}
     {% endif %}
         {% if not ticker %}
+        <div>
         <h1>{{symbol}}</h1><br>
-        <img src="{{chartTodayPath}}" height="100px" width="100px"><br>
-        Name:{{cname}}<br>
-        Sector:{{sector}}<br>
-        Revenue={{revenue}}<br>
-        Market Capital={{market_capital}}<br>
-        Open:{{Open}}<br>
-        High:{{dayHigh}}<br>
-        Low:{{dayLow}}<br>
-        lastPrice:{{lastPrice}}<br>
-        previousClose:{{previousClose}}<br>
-        change:{{change}}<br>
-        Percentage Change:{{pChange}}<br>
-        yearHigh:{{yearHigh}}<br>
-        yearLow:{{yearLow}}<br>
+        <img src="{{chartTodayPath}}" height="200px" width="200px"><br>
+        
+        <ul>
+        <li>Name:<h4>{{cname}}</h4><br></li>
+        <li>Sector:{{sector}}<br></li>
+        <li>Revenue (in Cr): {{revenue}} <br></li>
+        <li>Market Capital (in Cr): {{market_capital}}<br></li>
+            <br>
+        <li>Open:{{Open}}<br></li>
+        <li>High:{{dayHigh}}<br></li>
+        <li>Low:{{dayLow}}<br></li>
+        <li>lastPrice:{{lastPrice}}<br></li>
+        <li>previousClose:{{previousClose}}<br></li>
+        <li>change:{{change}}<br></li>
+        <li>Percentage Change:{{pChange}}<br></li>
+        <li>yearHigh:{{yearHigh}}<br></li>
+        <li>yearLow:{{yearLow}}<br></li>
+    </ul>
+        <br>
         <hr>
+    </div>
         <div>
         <form action="{%  url 'sellbuy' %}"  method="POST">
             {% csrf_token %}
